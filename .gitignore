@@ -7,3 +7,4 @@ high_resoution_image/
 blend_images/
 images/
 old_images/
+__pycache__/
