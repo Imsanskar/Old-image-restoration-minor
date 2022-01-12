@@ -8,3 +8,6 @@ blend_images/
 images/
 old_images/
 __pycache__/
+.ipynb_checkpoints/
+saved_models/
+test_images/
