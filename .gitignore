@@ -11,3 +11,12 @@ __pycache__/
 .ipynb_checkpoints/
 saved_models/
 test_images/
+img_align_celeba/
+data.zip/
+ISR_saved/
+bringing_old_photos_back_to_life_2/
+input_folder/
+output_folder/
+test.ipynb/
+val/
+train/
