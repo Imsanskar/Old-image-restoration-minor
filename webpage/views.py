@@ -2,7 +2,7 @@ from genericpath import exists
 from time import time
 from django.http import HttpResponse
 from django.shortcuts import render
-from .bringing_old_photos_back_to_life_2 import model
+from .bringing_old_photos_back_to_life import model
 from PIL import Image
 import os
 import shutil
