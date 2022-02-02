@@ -52,7 +52,7 @@ def modify(input_folder, with_scratch:bool, image_filename=None, cv2_frame=None)
 
 	# Stage 1: Overall Quality Improve
 	print("Running Stage 1: Overall restoration")
-	os.chdir("webpage/bringing_old_photos_back_to_life_2/Global")
+	os.chdir("webpage/bringing_old_photos_back_to_life/Global")
 	stage_1_input_dir = input_folder
 	stage_1_output_dir = os.path.join(
 		output_folder, "stage_1_restore_output")
@@ -113,7 +113,7 @@ def modify(input_folder, with_scratch:bool, image_filename=None, cv2_frame=None)
 	print("Running Stage 2: Face Detection")
 	# set the current working directory to the root
 	os.chdir("../../../")
-	os.chdir("webpage/bringing_old_photos_back_to_life_2/Face_Detection")
+	os.chdir("webpage/bringing_old_photos_back_to_life/Face_Detection")
 	stage_2_input_dir = os.path.join(stage_1_output_dir, "restored_image")
 	stage_2_output_dir = os.path.join(
 		output_folder, "stage_2_detection_output")
