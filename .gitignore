@@ -21,3 +21,4 @@ output_folder/
 test.ipynb/
 val/
 train/
+*.pth

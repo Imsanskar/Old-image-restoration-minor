@@ -223,7 +223,7 @@ if __name__ == "__main__":
 
 	# model loss functions
 	loss_fn_generator = torch.nn.MSELoss() # mean squared loss
-	loss_fn_disc = torch.nn.L1Loss() #pixel wise loss
+	loss_fn_disc = torch.nn.MSELoss() #pixel wise loss
 
 	# to cuda if cuda is avaiable
 	generator.to(device)
@@ -311,6 +311,8 @@ if __name__ == "__main__":
 		f.close()
 
 	for epoch in range(1):
+		print(discriminator)
+		# break
 		loss_G_list = np.array([])
 		loss_D_list = np.array([])
 		for i, batch in tqdm(enumerate(dataloader)):
@@ -369,8 +371,8 @@ if __name__ == "__main__":
 		with open(disc_error_file, "a") as f:
 			f.write(f"Discriminator Error, {torch.linalg.norm(loss_D).item()}, {epoch + total_discriminator_epochs}\n")
 	
-		torch.save(generator.state_dict(), f"saved_models/generator_{epoch + total_generator_epochs}.pth")
-		torch.save(discriminator.state_dict(), f"saved_models/discriminator_{epoch + total_discriminator_epochs}.pth")
+		torch.save(generator.state_dict(), f"saved_models/generator_new.pth")
+		torch.save(discriminator.state_dict(), f"saved_models/discriminator_new.pth")
 	
 		torch.cuda.empty_cache()
 
