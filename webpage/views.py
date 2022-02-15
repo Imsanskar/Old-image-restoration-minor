@@ -8,8 +8,11 @@ import os
 import shutil
 import torch
 
+from api.dummy_func import work
+
 # Create your views here.
 def home(request):
+	work()
 	torch.cuda.empty_cache()
 	current_working_directory = os.getcwd().split('/')[-1]
 	path = "webpage/pix2pix/data/train/old_images/001234.jpg"
