@@ -4,7 +4,7 @@ from api.models import Image ,NImage
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model=Image
-        fields=['id','title','image','created']
+        fields=['id','image']
 
 class NImageSerializer(serializers.ModelSerializer):
     class Meta:
