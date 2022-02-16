@@ -2,14 +2,17 @@ from genericpath import exists
 from time import time
 from django.http import HttpResponse
 from django.shortcuts import render
-from .bringing_old_photos_back_to_life import model
+# from .bringing_old_photos_back_to_life import model
 from PIL import Image
-import os
-import shutil
-import torch
+# import os
+# import shutil
+# import torch
+
+from api.dummy_func import work
 
 # Create your views here.
 def home(request):
+	work()
 	torch.cuda.empty_cache()
 	current_working_directory = os.getcwd().split('/')[-1]
 	path = "webpage/pix2pix_super_res/outputs/input.jpg"
