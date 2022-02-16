@@ -12,12 +12,12 @@ import torch
 def home(request):
 	torch.cuda.empty_cache()
 	current_working_directory = os.getcwd().split('/')[-1]
-	path = "webpage/pix2pix/data/train/old_images/001234.jpg"
+	path = "webpage/pix2pix_super_res/outputs/input.jpg"
 	curr_time = time()
 	if not os.path.exists('webpage/input_folder'):
 		os.makedirs("webpage/input_folder/")
 	# shutil.copy(path, "webpage/input_folder/input.jpg")
 	# im = Image.open("./pix2pix/data/train/old_images/001000.jpg")
-	model.modify("webpage/input_folder", False)
+	model.modify("webpage/input_folder", True)
 	print(f"Time taken: {time() - curr_time}")
 	return HttpResponse("Hello there")
