@@ -30,5 +30,5 @@ class ImageList(generics.ListAPIView):
 #         nimage.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
 class NImageDetail(generics.ListCreateAPIView):
-    queryset = Image.objects.all()
-    serializer_class = ImageSerializer
+    queryset = NImage.objects.all()
+    serializer_class = NImageSerializer
