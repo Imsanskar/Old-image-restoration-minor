@@ -54,19 +54,10 @@ class ImageList(APIView):
             print('error', images_serializer.errors)
             return Response(images_serializer.errors)
 
-# class NImageList(APIView):
-#     parser_classes = (MultiPartParser, FormParser)
+class NImageList(APIView):
+    parser_classes = (MultiPartParser, FormParser)
 
-#     def get(self, request, *args, **kwargs):
-#         queryset = NImage.objects.all()
-#         serializer = PostSerializer(posts, many=True)
-#         return Response(serializer.data)
-
-#     def post(self, request, *args, **kwargs):
-#         posts_serializer = PostSerializer(data=request.data)
-#         if posts_serializer.is_valid():
-#             posts_serializer.save()
-#             return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
-#         else:
-#             print('error', posts_serializer.errors)
-#             return Response(posts_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request, *args, **kwargs):
+        images = NImage.objects.all()
+        serializer = NImageSerializer(images, many=True)
+        return Response(serializer.data)
