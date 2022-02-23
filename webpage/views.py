@@ -3,7 +3,6 @@ from time import time
 from django.http import HttpResponse
 from django.shortcuts import render
 from .bringing_old_photos_back_to_life import model
-from PIL import Image
 import os
 import shutil
 import torch
@@ -45,6 +44,8 @@ class ImageList(APIView):
         return Response(serializer.data)
 
     def post(self, request,*args, **kwargs):
+        for x in Image.objects.all():
+            x.delete()
         print(request.data)
         images_serializer = ImageSerializer(data=request.data)
         if images_serializer.is_valid():
