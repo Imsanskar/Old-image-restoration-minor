@@ -49,6 +49,7 @@ if exist ".\Face_Enhancement\face_checkpoints" goto SkipFaceCheckPoint
 echo Downloading the pretrained model from Azure Blob Storage
 cd Face_Enhancement/
 curl https://github.com/microsoft/Bringing-Old-Photos-Back-to-Life/releases/download/v1.0/face_checkpoints.zip --output face_checkpoints.zip
+echo Extract face_checkpoints.zip from Face_Enhancement/face_checkpoints directory
 @REM tar -xvf face_checkpoints.zip -C face_checkpoints
 @REM del face_checkpoints.zip
 cd ../
@@ -60,6 +61,7 @@ curl https://github.com/microsoft/Bringing-Old-Photos-Back-to-Life/releases/down
 @REM tar -xvf global_checkpoints.zip -C global_checkpoints
 
 @REM del global_checkpoints.zip
+echo Extract global_checkpoints.zip from Global/global_checkpoints directory
 goto END
 
 :NotFound7z
