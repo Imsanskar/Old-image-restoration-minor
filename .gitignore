@@ -22,3 +22,6 @@ test.ipynb/
 val/
 train/
 *.pth
+archive/
+.vscode/
+migrations/

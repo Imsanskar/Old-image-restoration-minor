@@ -190,15 +190,15 @@ if __name__ == "__main__":
     print(cuda)
 
     # initialize weights if the model is not found in the paths
-    if os.path.exists("saved_models/generator.pth"):
+    if os.path.exists("saved_models/generator_49.pth"):
         print("Generator Found")
-        generator.load_state_dict(torch.load("saved_models/generator.pth", map_location = device))
+        generator.load_state_dict(torch.load("saved_models/generator_49.pth", map_location = device))
     else:
         generator.apply(weights_init_normal)
                                             
-    if os.path.exists("saved_models/discriminator_21.pth"):
+    if os.path.exists("saved_models/discriminator_49.pth"):
         print("Discriminator Found")
-        discriminator.load_state_dict(torch.load("saved_models/discriminator.pth", map_location = device))
+        discriminator.load_state_dict(torch.load("saved_models/discriminator_49.pth", map_location = device))
     else:
         discriminator.apply(weights_init_normal)
 
@@ -231,9 +231,9 @@ if __name__ == "__main__":
     ])
 
     # create a dataloader
-    pair_image_dataloader = img_dataloader.ImageDataset("./data/train/old_images", "./data/train/reconstructed_images", transform)
+    pair_image_dataloader = img_dataloader.ImageDataset("./data/train_2/old_images", "./data/train_2/reconstructed_images", transform)
 
-    for epoch in range(10):
+    for epoch in range(1):
         for i, batch in tqdm(enumerate(pair_image_dataloader)):
             real_A = batch['A'].unsqueeze(0) # old image
             real_B = batch['B'].unsqueeze(0) # new image
@@ -285,28 +285,6 @@ if __name__ == "__main__":
             if i % 500 ==  0 and i > 0:
                 break
 
-    test_image_index = 1875
-
-    generated_image = generator(pair_image_dataloader[test_image_index]['A'].unsqueeze(0).to(device)).detach().cpu().numpy()[0]
-    output_image = image_manipulation.np_to_pil(
-        generated_image
-    )
-    # print(torch.norm(discriminator(
-    #     generated_image, 
-    #     pair_image_dataloader[test_image_index]['B']
-    # )))
-    original_image = image_manipulation.np_to_pil(
-        pair_image_dataloader[test_image_index]['A'].detach().cpu().numpy()
-    )
-
-    new_image = Image.new(output_image.mode, (512, 256))
-
-    new_image.paste(original_image, (0, 0))
-    new_image.paste(output_image, (256, 0))
-
-    new_image
 
     torch.save(generator.state_dict(), "saved_models/generator.pth")
     torch.save(discriminator.state_dict(), "saved_models/discriminator.pth")
-
-    os.path.exists("saved_models/generator.pth")

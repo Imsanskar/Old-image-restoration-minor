@@ -12,27 +12,26 @@ from .models import Image
 from rest_framework import generics 
 from .serializers import ImageSerializer 
 from rest_framework.parsers import MultiPartParser, FormParser
-from .dummy_func import work    
+from .conver_image import convert    
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .conver_image import work
 
-
-
-from .dummy_func import work
 
 # Create your views here.
+# TODO: Remove this
 def home(request):
-	#work()
-	# torch.cuda.empty_cache()
-	# current_working_directory = os.getcwd().split('/')[-1]
-	# path = "webpage/pix2pix/data/train/old_images/001234.jpg"
-	# curr_time = time()
-	# if not os.path.exists('webpage/input_folder'):
-	# 	os.makedirs("webpage/input_folder/")
-	# # shutil.copy(path, "webpage/input_folder/input.jpg")
-	# # im = Image.open("./pix2pix/data/train/old_images/001000.jpg")
-	# model.modify("webpage/input_folder", False)
-	# print(f"Time taken: {time() - curr_time}")
+	# work()
+	torch.cuda.empty_cache()
+	current_working_directory = os.getcwd().split('/')[-1]
+	path = "webpage/pix2pix_super_res/outputs/input.jpg"
+	curr_time = time()
+	if not os.path.exists('webpage/input_folder'):
+		os.makedirs("webpage/input_folder/")
+	# shutil.copy(path, "webpage/input_folder/input.jpg")
+	# im = Image.open("./pix2pix/data/train/old_images/001000.jpg")
+	model.modify("webpage/input_folder", True)
+	print(f"Time taken: {time() - curr_time}")
 	return HttpResponse("Hello there")
 
 class ImageList(APIView):
@@ -50,9 +49,9 @@ class ImageList(APIView):
         images_serializer = ImageSerializer(data=request.data)
         if images_serializer.is_valid():
             images_serializer.save()
-            work()
+            convert()
             return Response(images_serializer.data,)
         else:
-            print('error', images_serializer.errors)
+            print(f"error, {images_serializer.errors}")
             return Response(images_serializer.errors)
 
