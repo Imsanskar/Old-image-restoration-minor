@@ -23,3 +23,5 @@ val/
 train/
 *.pth
 archive/
+.vscode/
+migrations/

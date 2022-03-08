@@ -14,7 +14,7 @@ def get_file_name(file_path_list:str):
 
 	file_name = list(reversed(file_path_list))
 	for i, char in enumerate(file_path_list):
-		if char == '/':
+		if char == '/' or char == '\\':
 			file_name = list(reversed(file_path_list[:i]))
 
 			return "".join(file_name).split(".")[0]
@@ -27,13 +27,14 @@ def restore_image(x, image_file:str):
 	torch.cuda.empty_cache()
 	# cleanup intermediate directory
 	# os.remove(image_file)
+	file_name = get_file_name(image_file)
 	if os.path.exists("webpage/input_folder/output.png"):
 		os.remove("webpage/input_folder/output.png")
 	
-	files = glob.glob('webpage/output_folder/input_folder/', recursive=True)
+	files = glob.glob('webpage/input_folder/*', recursive=True)
 	for f in files:
-		if "fuse" in f:
-			print("Fuse file removed")
+		if get_file_name(f) != file_name:
+			print("LOG: Old files removed")
 			os.remove(f)
 	files = glob.glob('webpage/output_folder/final_output/*', recursive=True)
 	for f in files:
@@ -46,15 +47,15 @@ def restore_image(x, image_file:str):
 	shutil.rmtree("webpage/output_folder/stage_1_restore_output/masks/input/", ignore_errors=True)
 	shutil.rmtree("webpage/output_folder/stage_1_restore_output/masks/mask/", ignore_errors=True)
 
-	file_name = get_file_name(image_file)
 	model.modify("webpage/input_folder", True, image_filename = image_file)
-	y = Photo.open(f"webpage/output_folder/final_output/{file_name}.png")
-	files = glob.glob('webpage/input_folder/*', recursive=True)
-	for f in files:
-		os.remove(f)
+	y = Photo.open(f"webpage/output_folder/stage_1_restore_output/restored_image/{file_name}.png")
+	# files = glob.glob('webpage/input_folder/*', recursive=True)
+	# for f in files:
+	# 	os.remove(f)
 	return y
 
-def work():
+# restores the image from input_folder and saves it in the database
+def convert():
 	image1 = Image.objects.filter().order_by('-pk')[0] #takes the latest data
 	input = image1.image
 	im = Photo.open(input)
