@@ -58,6 +58,7 @@ def restore_image(x, image_file:str):
 def convert():
 	image1 = Image.objects.filter().order_by('-pk')[0] #takes the latest data
 	input = image1.image
+	method = image1.method
 	im = Photo.open(input)
 	filename  =  'output.png'
 	o_im = restore_image(im, image1.image.path)
@@ -70,6 +71,6 @@ def convert():
 	
 	files = os.listdir('./webpage/input_folder/')
 	for f in files:
-		if f != "output.png":
+		if f != "output.png" or 'Default.jpg':
 			print(f"Fuse file removed {f}")
 			os.remove(f"webpage/input_folder/{f}")
