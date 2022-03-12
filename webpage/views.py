@@ -21,7 +21,6 @@ from .conver_image import work
 # Create your views here.
 # TODO: Remove this
 def home(request):
-	# work()
 	torch.cuda.empty_cache()
 	current_working_directory = os.getcwd().split('/')[-1]
 	path = "webpage/pix2pix_super_res/outputs/input.jpg"
@@ -43,9 +42,9 @@ class ImageList(APIView):
         return Response(serializer.data)
 
     def post(self, request,*args, **kwargs):
-        for x in Image.objects.all():
-            x.delete()
-        print(request.data)
+        # delete all the images from the database
+        for image in Image.objects.all():
+            image.delete()
         images_serializer = ImageSerializer(data=request.data)
         if images_serializer.is_valid():
             images_serializer.save()
