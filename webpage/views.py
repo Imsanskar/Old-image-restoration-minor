@@ -15,7 +15,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .conver_image import convert    
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .conver_image import work
+from .conver_image import convert
 
 
 # Create your views here.
