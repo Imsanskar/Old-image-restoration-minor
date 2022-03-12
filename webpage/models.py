@@ -8,3 +8,4 @@ def upload_to(instance,filename):
 class Image(models.Model):
     image = models.ImageField(_("Image"), upload_to=upload_to, height_field=None, width_field=None, max_length=None)
     n_image = models.ImageField("New_Image",default='Default.jpg')
+    method = models.IntegerField("Method",default=0)
