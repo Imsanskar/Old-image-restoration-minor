@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .bringing_old_photos_back_to_life import model
 import os
-import shutil
 import torch
 from rest_framework.decorators import api_view
 from django.shortcuts import render
@@ -12,10 +11,9 @@ from .models import Image
 from rest_framework import generics 
 from .serializers import ImageSerializer 
 from rest_framework.parsers import MultiPartParser, FormParser
-from .conver_image import convert    
+from .convert_image import convert    
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .conver_image import convert
 
 
 # Create your views here.
@@ -48,7 +46,7 @@ class ImageList(APIView):
         images_serializer = ImageSerializer(data=request.data)
         if images_serializer.is_valid():
             images_serializer.save()
-            convert()
+            convert(images_serializer['method'].value)
             return Response(images_serializer.data,)
         else:
             print(f"error, {images_serializer.errors}")
