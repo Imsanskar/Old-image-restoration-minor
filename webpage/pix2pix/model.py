@@ -4,45 +4,6 @@ import torchvision.transforms as transforms
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import torchvision.datasets as dset
-from data import image_manipulation
-from data import dataloader as img_dataloader
-from torch.autograd import Variable
-from tqdm import tqdm
-from PIL import Image
-from torch.utils.data import DataLoader
-
-torch.cuda.is_available()
-
-
-# random seed for reproducibility
-random_seed = 69
-
-np.random.seed(random_seed)
-
-
-# no of workers for dataloader
-no_of_workers = 4
-
-# root of the data
-data_root = "data/train/"
-
-# batch size
-batch_size = 1
-
-#no of epochs
-n_epochs = 10
-
-# learning rate
-lr = 0.0003
-
-# betas for adam
-beta_1 = 0.5
-beta_2 = 0.999
-
-# image size
-image_height = 512
-image_width = 512
 
 
 def weights_init_normal(m):
@@ -195,3 +156,16 @@ class Discriminator(nn.Module):
 		# Concatenate image and condition image by channels to produce input
 		img_input = torch.cat((img_A, img_B), 1)
 		return self.model(img_input)
+
+def get_generator(path:str) -> GeneratorUNet :
+    generator = GeneratorUNet()
+    generator_state = None
+
+    try:
+        generator_state = torch.load(path)
+        generator.load_state_dict(generator_state)
+    except FileNotFoundError:
+        print("Model path not found")
+
+
+    return generator
