@@ -3,7 +3,6 @@
 notebooks/
 high_resoution_image/
 .ipynb_checkpoints/
-*.jpg
 blend_images/
 images/
 old_images/
@@ -21,8 +20,10 @@ output_folder/
 test.ipynb/
 val/
 train/
+train_2/
+val_2/
 *.pth
 archive/
 .vscode/
 migrations/
-db.sqlite
+db.sqlite3

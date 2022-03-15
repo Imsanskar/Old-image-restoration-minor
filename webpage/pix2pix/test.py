@@ -12,6 +12,8 @@ from torch.autograd import Variable
 from tqdm import tqdm
 from PIL import Image
 from torch.utils.data import DataLoader
+from torchsummary import summary
+from torch.utils.tensorboard import SummaryWriter
 
 
 def weights_init_normal(m):
@@ -405,8 +407,7 @@ if __name__ == "__main__":
 	ssim_value_np = np.array(ssim_value_list)
 	ssim_value_dataset_np = np.array(ssim_value_list_dataset)
 
-	print(np.mean((ssim_value_list)))
-	print(np.mean((ssim_value_list_dataset)))
+	print(f"SSIM Value: {np.mean((ssim_value_list))}")
 
 
 
