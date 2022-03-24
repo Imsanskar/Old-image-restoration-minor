@@ -14,6 +14,7 @@ python -m pip install -r requirements.txt
   ```
   git clone git@github.com:Imsanskar/Old-image-restoration-minor.git
   ```
+* Download the models from [here](https://drive.google.com/drive/folders/1YN3MamybDEZkXae6n4r21IM2st4qEKM9?usp=sharing) and save the models in `webpage/saved_models` directory
 * Run the script: `./setup.sh`
 * Run Django Server: 
  ```
@@ -21,6 +22,7 @@ python -m pip install -r requirements.txt
  python manage.py migrate
  python manage.py runserver
  ```
+
 
 ### Contributors
 * [Sanskar Amgain](https://github.com/Imsanskar/)

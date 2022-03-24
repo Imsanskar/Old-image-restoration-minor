@@ -1,6 +1,8 @@
 import shutil
 from cv2 import transform
 import torch
+
+from webpage import MODEL_PATH_GENERATOR, MODEL_PATH_GENERATOR_TRANSPOSE
 from .models import Image
 from .serializers import ImageSerializer
 import copy,io
@@ -57,7 +59,7 @@ def restore_image(image_file:str, method):
 		return y
 	elif method == 1:
 		device = 'cuda' if torch.cuda.is_available() else 'cpu'
-		generator_transpose = model_transpose.get_generator("webpage/pix2pix_transpose/saved_models/generator_mine.pth").to(device)
+		generator_transpose = model_transpose.get_generator(MODEL_PATH_GENERATOR_TRANSPOSE).to(device)
 
 		image = Photo.open(image_file)
 		tensor_transform = transforms.Compose([
@@ -65,6 +67,9 @@ def restore_image(image_file:str, method):
 			transforms.Resize((512, 512))
 		]) 
 
+		# apply model to the input
+		# unsqueeze to add new dimension the model takes N*channel*image_width*image_height
+		# where N is the number of datas
 		output_image = generator_transpose(tensor_transform(image).unsqueeze(0).to(device))
 		output_image = np_to_pil(
 			output_image.detach().cpu().numpy()[0]
@@ -75,12 +80,11 @@ def restore_image(image_file:str, method):
 		
 
 	else:
-		#TODO: Implement this branch
 		device = 'cuda' if torch.cuda.is_available() else 'cpu'
-		generator = pix2pix_model.get_generator("webpage/pix2pix/saved_models_new_data/generator_263.pth").to(device)
-		from torchsummary import summary
-
-		print(print(generator))
+		# apply model to the input
+		# unsqueeze to add new dimension the model takes N*channel*image_width*image_height
+		# where N is the number of datas
+		generator = pix2pix_model.get_generator(MODEL_PATH_GENERATOR).to(device)
 		image = Photo.open(image_file)
 		tensor_transform = transforms.Compose([
 			transforms.ToTensor(),
@@ -115,6 +119,7 @@ def convert(method):
 	image1.save()
 
 	
+	# cleanup useless files
 	files = os.listdir('./webpage/input_folder/')
 	for f in files:
 		if f != "output.png" and f != 'Default.jpg':
